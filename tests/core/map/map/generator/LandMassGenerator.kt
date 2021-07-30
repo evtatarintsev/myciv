@@ -32,7 +32,8 @@ class TestLandMassGenerator {
             assertEquals(height, it.size)
         }
     }
-    fun getLandWaterRatio(landMass: LandMass): Double {
+
+    private fun getLandWaterRatio(landMass: LandMass): Double {
         // arrange
         val width = 100
         val height = 100
@@ -51,7 +52,7 @@ class TestLandMassGenerator {
         // assert
         var waterCount = 0
         var landCount = 0
-        land.forEach {col->
+        land.forEach { col ->
             col.forEach {
                 if (it == LandForm.WATER) {
                     waterCount++
@@ -60,45 +61,54 @@ class TestLandMassGenerator {
                 }
             }
         }
-        return  waterCount.toDouble() / landCount
+        return landCount / waterCount.toDouble()
     }
 
     @Test
-    fun `for LandMass_NORMAL quantity of LAND and WATER must be roughly 0_5`() {
+    fun `for LandMass_NORMAL ratio of LAND and WATER must be roughly 1`() {
         // arrange
-        val expectedRatio = 0.5
+        val expectedRatio = 1.0
         val tolerance = 0.05 // 5%
 
         // act
         val actualRatio = getLandWaterRatio(LandMass.NORMAL)
 
         // assert
-        assertTrue(tolerance <  abs(expectedRatio - actualRatio))
+        assertTrue(
+            abs(expectedRatio - actualRatio) < tolerance,
+            "water / land ration must be $expectedRatio +-$tolerance but actual $actualRatio"
+        )
     }
 
     @Test
-    fun `for LandMass_SMALL quantity of LAND and WATER must be roughly 0_3`() {
+    fun `for LandMass_SMALL ratio of LAND and WATER must be roughly 0_5`() {
         // arrange
-        val expectedRatio = 0.3
+        val expectedRatio = 0.5
         val tolerance = 0.05 // 5%
 
         // act
         val actualRatio = getLandWaterRatio(LandMass.SMALL)
 
         // assert
-        assertTrue(tolerance <  abs(expectedRatio - actualRatio))
+        assertTrue(
+            abs(expectedRatio - actualRatio) < tolerance,
+            "water / land ration must be $expectedRatio +-$tolerance but actual $actualRatio"
+        )
     }
 
     @Test
-    fun `for LandMass_LARGE quantity of LAND and WATER must be roughly 0_8`() {
+    fun `for LandMass_LARGE ratio of LAND and WATER must be roughly 2`() {
         // arrange
-        val expectedRatio = 0.8
+        val expectedRatio = 2
         val tolerance = 0.05 // 5%
 
         // act
         val actualRatio = getLandWaterRatio(LandMass.LARGE)
 
         // assert
-        assertTrue(tolerance <  abs(expectedRatio - actualRatio))
+        assertTrue(
+            abs(expectedRatio - actualRatio) < tolerance,
+            "water / land ration must be $expectedRatio +-$tolerance but actual $actualRatio"
+        )
     }
 }
