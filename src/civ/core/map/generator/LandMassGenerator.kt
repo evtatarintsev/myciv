@@ -30,15 +30,17 @@ class LandMassGenerator(seed: Long) {
             LandMass.NORMAL -> 1 / 2f    // 1 to 1
             LandMass.LARGE -> 2 / 3f     // 2 to 1
         }
-        val land = Array(mapSize.width) {
-            Array(mapSize.height) { LandForm.WATER }
+        val land = Array(config.size.width) {
+            Array(config.size.height) { LandForm.WATER }
         }
-        val requiredSpawnedLand = (mapSize.width * mapSize.height * landWaterRatio).toInt()
+
+        val requiredSpawnedLand = (config.size.width * config.size.height * landWaterRatio).toInt()
         var totalSpawnedLand = 0
+
         while (totalSpawnedLand < requiredSpawnedLand) {
             totalSpawnedLand += spawnLand(land)
         }
-        println("$requiredSpawnedLand required, spawned $totalSpawnedLand")
+
         return land
     }
 

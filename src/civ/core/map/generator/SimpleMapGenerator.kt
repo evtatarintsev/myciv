@@ -5,8 +5,11 @@ import civ.core.map.map.GameMap
 import civ.core.map.tiles.LandForm
 import civ.core.map.tiles.Terrain
 import civ.core.map.tiles.Tile
+import kotlin.random.Random
 
 class SimpleMapGenerator(private val seed: Long) {
+    private val rand = Random(seed)
+
     fun generate(config: Config): GameMap {
         val land = LandMassGenerator(seed).generate(config)
         val terrains = spawnTerrain(land)
@@ -18,8 +21,8 @@ class SimpleMapGenerator(private val seed: Long) {
         return land.map { col ->
             col.map {
                 when (it) {
-                    LandForm.WATER -> Terrain.OCEAN
-                    LandForm.LAND -> Terrain.PLAIN
+                    LandForm.WATER -> Terrain.water[rand.nextInt(Terrain.water.size)]
+                    LandForm.LAND -> Terrain.lands[rand.nextInt(Terrain.lands.size)]
                 }
             }.toTypedArray()
         }.toTypedArray()

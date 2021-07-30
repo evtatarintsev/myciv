@@ -62,4 +62,9 @@ enum class Terrain {
     abstract val gold: Int
     abstract val movementCost: Int
     abstract val baseProduction: Int
+
+    companion object {
+        val water = values().filter { it.landForm == LandForm.WATER }
+        val lands = values().filter { it.landForm == LandForm.LAND }
+    }
 }

@@ -8,7 +8,7 @@ fun main() {
     val mapPresenter = HtmlMapPresenter()
     val config = Config(
         size = Size(140, 70),
-        landMass = LandMass.NORMAL,
+        landMass = LandMass.LARGE,
         temperature = Temperature.TEMPERATE,
         climate = Climate.NORMAL,
         age = Age.AGE_1,
